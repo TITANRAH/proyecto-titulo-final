@@ -1,0 +1,10 @@
+{
+  "name": "organizador_clases",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
+  },
+  "type": "angular"
+}
