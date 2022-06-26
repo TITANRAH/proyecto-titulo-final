@@ -1,0 +1,73 @@
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="12">
+<!-- esto se muestra si no hay formulario -->
+      <ng-container *ngIf="!showForm">
+
+          <!-- filtro -->
+          <app-filter 
+          [filter] = "filter"
+          (filterData) = "filterData($event)">
+          
+        </app-filter>
+
+          <ion-row>
+            <ion-col size="12">
+              <app-list-data
+              [data]="classes"
+              [emptyText]="'label.no.clases'"
+              [addText]="'label.add.class'"
+              (add)="showForm = true">
+            
+              <ng-template #templateData let-item="item">
+
+                
+                  <ion-item-sliding>   
+                    <ion-item>
+                      <!-- con esto mostramos en la vista  las clases generadas -->
+                      <div class="clases-generadas">
+                        <ion-label color="primary" class="ion-text-wrap">
+                        {{
+                          item.student?.name + ' ' + item.student?.surname + ' - ' +
+                          (item.date_start | date: 'dd MMM yyyy') + ' desde las:  ' +  
+                          (item.date_start | date: 'HH:mm') + ' Hrs. hasta las: ' +
+                          (item.date_end | date: 'HH:mm') + ' Hrs. valor: ' +
+                          item.price + '$'
+                        }}
+                      </ion-label>
+                      </div>
+                    </ion-item> 
+                    <ion-item-options slot="end">
+                      <ion-item-option color="warning" (click)="editClass(item)"><ion-icon slot="icon-only" name="pencil-outline"></ion-icon></ion-item-option>
+                      <ion-item-option color="danger" (click)="removeClassConfirm(item)"><ion-icon slot="icon-only" name="trash"></ion-icon></ion-item-option>
+                   </ion-item-options>
+
+                  </ion-item-sliding>
+                
+
+              </ng-template>
+
+            </app-list-data>
+            </ion-col>
+          </ion-row>
+<!-- esto se muestra cuando hay formulario -->
+      </ng-container>
+
+      <ng-container *ngIf="showForm" >
+          <ion-row>
+            <ion-col size="12">
+              <!-- aqui recibo el output del hijo y la info del event emmiter -->
+                <app-form-classes
+                [classObj]="classSelected"
+                (close)="closeForm()"
+                ></app-form-classes>
+            </ion-col>
+          </ion-row>
+      </ng-container>
+      
+      
+    </ion-col>
+    
+    
+  </ion-row>
+</ion-grid>

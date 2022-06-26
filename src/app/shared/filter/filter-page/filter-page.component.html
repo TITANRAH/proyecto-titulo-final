@@ -1,0 +1,67 @@
+<ion-grid>
+  <ion-row>
+    <ion-col size="12">
+
+      <form (ngSubmit)="filterData()">
+
+        <!-- ¿Está pagado? -->
+        <ion-row *ngIf="payment">
+          <ion-col size="12">
+            <ion-item>
+              <ion-label>{{'label.paid' | translate}}</ion-label>
+              <!-- <ion-toggle [(ngModel)]="filter" name="paid" (ionChange)="cleanDates()"></ion-toggle> -->
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <!-- Fecha iniscio -->
+        <ion-row >
+          <ion-col size="12">
+            <ion-item>
+              <ion-label>{{'label.class.date.start' | translate}}</ion-label>
+              <ion-datetime display-format="DD MMM YYYY HH mm" [(ngModel)]="filter.date_start" name="date_start"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <!-- Fecha fin -->
+        <ion-row >
+          <ion-col size="12">
+            <ion-item>
+              <ion-label>{{'label.class.date.end' | translate}}</ion-label>
+              <ion-datetime display-format="DD MMM YYYY HH mm" [(ngModel)]="filter.date_end" name="date_end"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <!-- Estudiante -->
+        <ion-row *ngIf="students.length > 0">
+          <ion-col size="12">
+            <ion-item>
+              <ion-label>{{'label.filter.class.student' | translate}}</ion-label>
+              <ion-select [(ngModel)]="filter.id_student" name="student">
+                <ion-select-option [value]="student.id" *ngFor="let student of students">{{student.name + ' ' + student.surname}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <!-- Boton filtro -->
+        <ion-row>
+          <ion-col size="12">
+            <ion-button expand="block" type="submit">{{'label.filter' | translate}}</ion-button>
+          </ion-col>
+        </ion-row>
+
+        <!-- Reset -->
+        <ion-row>
+          <ion-col size="12">
+            <ion-button expand="block" type="button" (click)="reset()">{{'label.reset' | translate}}</ion-button>
+          </ion-col>
+        </ion-row>
+
+      </form>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>

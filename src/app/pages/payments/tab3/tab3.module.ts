@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { Tab3Page } from './tab3.page';
 
 import { Tab3PageRoutingModule } from './tab3-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { ListPaymentComponent } from '../list-payment/list-payment.component';
 
 @NgModule({
   imports: [
@@ -14,7 +17,13 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }]),
     Tab3PageRoutingModule,
+    SharedModule,
+    TranslateModule.forChild()
   ],
-  declarations: [Tab3Page]
+  declarations: [
+    Tab3Page,
+    ListPaymentComponent
+    
+  ]
 })
 export class Tab3PageModule {}

@@ -1,0 +1,27 @@
+<form (ngSubmit)="addEditStudent()">
+
+  <!-- poniendo las propiedades del modelo student -->
+  <ion-item>
+    <ion-label>{{'label.form.student.name' | translate}}</ion-label>
+    <ion-input type="text" [(ngModel)]="student.name" name="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{'label.form.student.surname' | translate}}</ion-label>
+    <ion-input type="text" [(ngModel)]="student.surname" name="surname"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{'label.form.student.email' | translate}}</ion-label>
+    <ion-input type="text" [(ngModel)]="student.email" name="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{'label.form.student.phone' | translate}}</ion-label>
+    <ion-input type="text" [(ngModel)]="student.phone" name="phone"></ion-input>
+  </ion-item>
+ 
+  <ion-button expand="block"  type="submit">
+    {{(edit ? 'label.edit.student' : 'label.add.student') | translate}}
+  </ion-button>
+  <ion-button expand="block" type="button" (click)="closeForm()">
+    {{'label.back' | translate}}
+  </ion-button>
+</form>
