@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { Class } from '../models/class';
 import * as moment from 'moment';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class SqliteManagerService {
       this.db = db;
 
       // sql necesario para crear la base de datos
+      let sqlUsers = 'CREATE TABLE IF NOT EXISTS "users" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `email` TEXT NOT NULL, `name` TEXT NOT NULL, `surname` TEXT NOT NULL, `phone` TEXT NOT NULL);';
+
+      
+
       let sqlTablaAlumnos = 'CREATE TABLE IF NOT EXISTS "students" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `surname` TEXT, `email` TEXT NOT NULL, `phone` TEXT NOT NULL, `active` INTEGER DEFAULT 1 );';
 
       let sqlDelAlumnos = 'DELETE FROM students;';
@@ -51,7 +56,7 @@ export class SqliteManagerService {
      
 
       return Promise.all(
-        [
+        [ this.db.executeSql(sqlUsers, []),
           this.db.executeSql(sqlTablaAlumnos, []),
           this.db.executeSql(sqlDelAlumnos, []),
           this.db.executeSql(sqlAl1, []),
@@ -71,6 +76,32 @@ export class SqliteManagerService {
 
     });
 
+  }
+
+  createUser(user: any){
+    const sql = 'INSERT INTO users(email, name, surname, phone) VALUES(?,?,?,?)';
+    return this.db.executeSql(sql, [
+      user.email,
+      user.name,
+      user.surname,
+      user.phone
+    ]);
+  }
+
+  getUser(search?: string) {
+    let sql = 'SELECT * FROM users';
+    if (search) {
+      sql += " WHERE lower(email) LIKE '%" + search.toLowerCase() + "%' or lower(name) LIKE '%" + search.toLowerCase() + "%' or lower(surname) LIKE '%" + search.toLowerCase() + "%' or lower(surname) LIKE '%" + search.toLowerCase() + "%'";
+    }
+    return this.db.executeSql(sql, []).then(response => {
+      let users = [];
+      for (let index = 0; index < response.rows.length; index++) {
+        const row = response.rows.item(index);
+        let user: User = row as User;
+        users.push(user);
+      }
+      return Promise.resolve(users);
+    }).catch(error => Promise.reject(error));
   }
 
   // Students

@@ -79,7 +79,8 @@ export class FormClassesComponent implements OnInit {
     } else {
       // Creamos la clase
       this.sqliteManager.createClass(this.classObj).then(c => {
-
+        console.log('hora desde form clases',this.classObj.date_start.slice(-5,-11));
+        
         console.log(c);
 
         this.alertService.alertSuccess(

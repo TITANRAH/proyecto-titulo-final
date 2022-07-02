@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { Globalization } from '@ionic-native/globalization/ngx';
@@ -12,6 +14,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+
+
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -20,6 +24,9 @@ export function HttpLoaderFactory(http: HttpClient){
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

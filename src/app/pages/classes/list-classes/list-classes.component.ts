@@ -124,10 +124,7 @@ export class ListClassesComponent implements OnInit {
     this.getClasses();
   }
 
-  /**
-   * Pagar una clase
-   * @param c 
-   */
+  
   
 
 }
