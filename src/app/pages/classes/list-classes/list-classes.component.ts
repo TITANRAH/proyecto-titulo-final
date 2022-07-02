@@ -1,107 +1,133 @@
+
+import { Filter } from './../../../models/filter';
+import { AlertService } from './../../../services/alert.service';
+import { Student } from './../../../models/student';
+import { SqliteManagerService } from './../../../services/sqlite-manager.service';
+import { Class } from './../../../models/class';
 import { Component, OnInit } from '@angular/core';
-import { Class } from 'src/app/models/class';
-import { SqliteManagerService } from '../../../services/sqlite-manager.service';
-import { Student } from '../../../models/students';
-import { InteractionService } from 'src/app/services/interaction.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Filter } from '../../../models/filter';
 
 @Component({
   selector: 'app-list-classes',
   templateUrl: './list-classes.component.html',
-  styleUrls: ['./list-classes.component.scss'],
+  styleUrls: ['./list-classes.component.css']
 })
 export class ListClassesComponent implements OnInit {
 
-  classes: Class[];
-  showForm: boolean;
-  classSelected: Class;
-  students: Student[];
-  filter: Filter
+  public classes: Class[];
+  public showForm: boolean;
+  public classSelected: Class;
+  public students: Student[];
+  public filter: Filter;
 
-  constructor(private sqliteManagerService : SqliteManagerService,
-              private interactionService : InteractionService,
-              private translate : TranslateService) { 
-
+  constructor(
+    private slqiteManager: SqliteManagerService,
+    private alertService: AlertService,
+    private translate: TranslateService
+  ) {
     this.classes = [];
     this.students = [];
-    this.filter = new Filter;
+   
+    this.filter = new Filter();
   }
 
   ngOnInit() {
     this.getClasses();
   }
 
-  getClasses(){
-    // obtengo clases y estudiantes de la base de datos
+  getClasses() {
+
+    // Obtenemos las clases, estudiantes y pagos.
     Promise.all(
-    [
-      this.sqliteManagerService.getClasses(this.filter),
-      this.sqliteManagerService.getStudents()
-    ]).then(results => {
+      [
+        this.slqiteManager.getClasses(this.filter),
+        this.slqiteManager.getStudents(),
+        
+      ]
+    ).then(results => {
       this.classes = results[0];
       this.students = results[1];
-      this.associateStudentsClasses();
+     
+      this.associateStudentsClasess();
+     
       console.log(this.classes);
-      
     })
 
   }
 
-  associateStudentsClasses(){
-    // busco el estudiante asociado a la clase el estudiante tiene el id y la clase tiene el id_student
-    //busco entre las clases lo recorro y dentro de la clase busco el estudiante asociado a esa clase
-    //luego ocupo esta funcion en get clases
-    //y luego ocupo la funcion get clases en close form
-    this.classes.forEach(c=>{
-      let student = this.students.find( s=> s.id === c.id_student);
+  /**
+   * Asociamos las clases y los estudiantes
+   */
+  associateStudentsClasess() {
+    this.classes.forEach(c => {
+      let student = this.students.find(s => s.id === c.id_student);
       c.student = student;
-
-    });
+    })
   }
 
-  closeForm(){
-    // alñ recibir la emision close desde el componente hijo form se iguala a esta funcion que realiza lo siguiente 
-    // dejar en false el mostrar formulario y dejar en null la clase seleccionada
-    //cuando cerremos el form recogemos las clases estudiantiles con el estudiante asociado generadas
+
+
+  /**
+   * Reseteamos y volvemos a pedir las clases
+   */
+  closeForm() {
     this.showForm = false;
     this.classSelected = null;
-    this.getClasses()
+    this.getClasses();
   }
 
-  editClass(c: Class){
+  /**
+   * Seleccionamos la clase a editar y mostramos el formulario
+   * @param c 
+   */
+  editClass(c: Class) {
     this.classSelected = c;
     this.showForm = true;
   }
 
-  removeClassConfirm(c: Class){
-
-    // el this no sera aceptado dentro de la funcion por lo que creamos una variable con su nombre 
+  /**
+   * Confirmarmos la eliminacion de la clase
+   * @param c 
+   */
+  removeClassConfirm(c: Class) {
     const self = this;
-    // cuando le demos a eliminar pedira esta confirmacion y llamara al evento de eliminar 
-    this.interactionService.presentAlertRemoveClass(
+    this.alertService.alertConfirm(
       this.translate.instant('label.confirm'),
       this.translate.instant('label.confirm.message.class'),
-      function(){
+      function () {
         self.removeClass(c);
       }
     )
   }
 
-  removeClass(c: Class){
-    this.sqliteManagerService.deleteClass(c).then(()=>{
-    this.interactionService.presentAlert(
-      this.translate.instant('label.success'),
-      this.translate.instant('label.success.message.remove.class'));
+  /**
+   * Eliminar unaclase
+   * @param c 
+   */
+  removeClass(c: Class) {
+    this.slqiteManager.deleteClass(c).then(() => {
+      this.alertService.alertSuccess(
+        this.translate.instant('label.success'),
+        this.translate.instant('label.success.message.remove.class')
+      );
       this.getClasses();
     }).catch(error => console.error(error))
   }
 
-  filterData(event){
-    this.filter = event;
-    console.log('filtro',this.filter);
-    
+  /**
+   * Filtrado de datos
+   * @param $event 
+   */
+  filterData($event) {
+    this.filter = $event;
+    console.log(this.filter);
     this.getClasses();
   }
+
+  /**
+   * Pagar una clase
+   * @param c 
+   */
+  
 
 }

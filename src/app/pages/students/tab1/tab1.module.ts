@@ -1,3 +1,6 @@
+import { FormStudentComponent } from './../form-student/form-student.component';
+import { ListStudentsComponent } from './../list-students/list-students.component';
+import { SharedModule } from './../../../shared/shared.module';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -5,10 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
-import { SharedModule } from '../../../shared/shared.module';
-import { ListStudentsComponent } from '../list-students/list-students.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormStudentComponent } from '../form-student/form-student.component';
 
 @NgModule({
   imports: [
@@ -18,7 +18,6 @@ import { FormStudentComponent } from '../form-student/form-student.component';
     Tab1PageRoutingModule,
     SharedModule,
     TranslateModule.forChild()
-    
   ],
   declarations: [
     Tab1Page,
@@ -26,4 +25,4 @@ import { FormStudentComponent } from '../form-student/form-student.component';
     FormStudentComponent
   ]
 })
-export class Tab1PageModule {}
+export class Tab1PageModule { }

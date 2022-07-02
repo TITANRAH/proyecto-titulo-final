@@ -1,9 +1,7 @@
 {
-  "name": "organizador_clases",
+  "name": "proyecto_de_titulo",
   "integrations": {
-    "capacitor": {
-      "enabled": false
-    },
+    "capacitor": {},
     "cordova": {}
   },
   "type": "angular"

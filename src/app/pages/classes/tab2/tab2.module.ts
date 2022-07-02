@@ -1,3 +1,6 @@
+import { SharedModule } from './../../../shared/shared.module';
+import { FormClassesComponent } from './../form-classes/form-classes.component';
+import { ListClassesComponent } from './../list-classes/list-classes.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -6,10 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
-import { ListClassesComponent } from '../list-classes/list-classes.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormClassesComponent } from '../form-classes/form-classes.component';
 
 @NgModule({
   imports: [
@@ -19,11 +19,11 @@ import { FormClassesComponent } from '../form-classes/form-classes.component';
     Tab2PageRoutingModule,
     SharedModule,
     TranslateModule.forChild()
-    
   ],
   declarations: [
-    FormClassesComponent,
     Tab2Page,
-    ListClassesComponent]
+    ListClassesComponent,
+    FormClassesComponent
+  ]
 })
 export class Tab2PageModule {}

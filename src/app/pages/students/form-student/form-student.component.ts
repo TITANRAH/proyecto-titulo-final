@@ -1,60 +1,74 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Student } from '../../../models/students';
-import { SqliteManagerService } from '../../../services/sqlite-manager.service';
+import { AlertService } from './../../../services/alert.service';
+import { Student } from './../../../models/student';
 import { TranslateService } from '@ngx-translate/core';
-import { InteractionService } from '../../../services/interaction.service';
+import { SqliteManagerService } from './../../../services/sqlite-manager.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-form-student',
   templateUrl: './form-student.component.html',
-  styleUrls: ['./form-student.component.scss'],
+  styleUrls: ['./form-student.component.scss']
 })
 export class FormStudentComponent implements OnInit {
 
   @Input() student: Student;
-  // para cerrar el formulario que se sepa 
-  @Output() close: EventEmitter<boolean>
+  public edit: boolean;
 
-  edit: boolean;
+  @Output() close: EventEmitter<boolean>;
 
-  constructor(private sqliteManagerService : SqliteManagerService,
-              private translate : TranslateService,
-              private interactionService : InteractionService) { 
-
-                this.edit = false;
-                this.close = new EventEmitter<boolean>()
-              }
+  constructor(
+    private sqliteManager: SqliteManagerService,
+    private alertService: AlertService,
+    private translate: TranslateService
+  ) {
+    this.edit = false;
+    this.close = new EventEmitter<boolean>();
+  }
 
   ngOnInit() {
-
-    // si estudiante no existe crea uno
-    // si no el editar es true
-    if(!this.student){
-        this.student = new Student();
+    // Modo creacion
+    if (!this.student) {
+      this.student = new Student();
     } else {
+      // Modo edicion
       this.edit = true;
     }
   }
 
-  // añado a un estudiante y luego cierro el form
-  addEditStudent(){
-    if(this.edit){
-      this.sqliteManagerService.updateStudent(this.student).then(()=>{
+  /**
+   * Añadir o editar estudiante
+   */
+  addEditStudent() {
 
-        console.log('se ha actualizado');
-        this.interactionService.presentAlert(this.translate.instant('label.success'),
-                                             this.translate.instant('label.success.message.edit.student'));
+    if (this.edit) {
+      // Editar clase
+      this.sqliteManager.updateStudent(this.student).then(() => {
+        console.log('Se ha actualizado');
+        this.alertService.alertSuccess(
+          this.translate.instant('label.success'),
+          this.translate.instant('label.success.message.edit.student')
+        )
+        this.closeForm();
       })
-    }else{
-      this.sqliteManagerService.createStudent(this.student).then(()=>{
+    } else {
+      // Crear clase
+      this.sqliteManager.createStudent(this.student).then(() => {
+        console.log('Se ha insertado');
+        this.alertService.alertSuccess(
+          this.translate.instant('label.success'),
+          this.translate.instant('label.success.message.add.student')
+        )
         this.closeForm();
       })
     }
+
   }
 
-  closeForm(){
-    // si se cierra el form emite un true por que el event emitter es booleano
-    this.close.emit(true)
+  /**
+   * Indico que salgo del formulario
+   */
+  closeForm() {
+    this.close.emit(true);
   }
 
 }

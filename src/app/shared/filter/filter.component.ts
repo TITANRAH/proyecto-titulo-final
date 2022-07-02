@@ -2,7 +2,6 @@ import { Filter } from './../../models/filter';
 import { FilterPageComponent } from './filter-page/filter-page.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { InteractionService } from '../../services/interaction.service';
 
 @Component({
   selector: 'app-filter',
@@ -19,8 +18,7 @@ export class FilterComponent implements OnInit {
   @Output() filterData: EventEmitter<Filter>;
 
   constructor(
-    public popoverController: PopoverController,
-    
+    public popoverController: PopoverController
   ) {
     this.showFilters = false;
     this.filterData = new EventEmitter<Filter>();
@@ -35,7 +33,6 @@ export class FilterComponent implements OnInit {
       component: FilterPageComponent,
       backdropDismiss: true,
       event: ev,
-      cssClass: '.popover-content',
       componentProps: {
         "filter": this.filter,
         "payment": this.payment
@@ -51,8 +48,6 @@ export class FilterComponent implements OnInit {
 
     await popover.present();
   }
-
-  
 
   ngOnInit() {
 

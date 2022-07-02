@@ -1,9 +1,8 @@
 import { PopoverController } from '@ionic/angular';
-
+import { Student } from './../../../models/student';
 import { SqliteManagerService } from './../../../services/sqlite-manager.service';
 import { Filter } from './../../../models/filter';
 import { Component, Input, OnInit } from '@angular/core';
-import { Student } from 'src/app/models/students';
 
 @Component({
   selector: 'app-filter-page',
@@ -27,9 +26,9 @@ export class FilterPageComponent implements OnInit {
 
   ngOnInit() {
 
-    // if (this.filter.paid == null) {
-    //   this.filter.paid = false;
-    // }
+    if (this.filter.paid == null) {
+      this.filter.paid = false;
+    }
 
     // Obtener estudiantes
     this.sqliteManager.getStudents().then(students => {
@@ -41,12 +40,12 @@ export class FilterPageComponent implements OnInit {
   /**
    * Reseteamos las fechas si el pago no esta marcado
    */
-  // cleanDates() {
-  //   if (!this.filter.paid) {
-  //     this.filter.date_start = null;
-  //     this.filter.date_end = null;
-  //   }
-  // }
+  cleanDates() {
+    if (!this.filter.paid) {
+      this.filter.date_start = null;
+      this.filter.date_end = null;
+    }
+  }
 
   /**
    * Cerramos el popover

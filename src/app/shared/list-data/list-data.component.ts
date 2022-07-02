@@ -1,9 +1,9 @@
-import { Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ContentChild, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-list-data',
   templateUrl: './list-data.component.html',
-  styleUrls: ['./list-data.component.scss'],
+  styleUrls: ['./list-data.component.css']
 })
 export class ListDataComponent implements OnInit {
 
@@ -12,21 +12,22 @@ export class ListDataComponent implements OnInit {
   @Input() addText: string;
   @Input() showAdd = true;
 
-  // el propio usuario que llame al componente pueda personalizar lo que quiera mostrar en cada fila
-  @ContentChild("templateData", {static: false}) templateData: TemplateRef<any>;
+  @ContentChild("templateData", { static: false }) templateData: TemplateRef<any>;
 
   @Output() add: EventEmitter<boolean>;
 
   constructor() {
+    this.add = new EventEmitter<boolean>();
+  }
 
-    this.add = new EventEmitter<boolean>()
-   }
-
-  ngOnInit() {}
-
-  addData(){
-
-    this.add.emit(true)
+  ngOnInit() {
+  }
+  
+  /**
+   * Indico que quiero añadir un dato
+   */
+  addData() {
+    this.add.emit(true);
   }
 
 }
