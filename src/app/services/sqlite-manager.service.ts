@@ -119,7 +119,17 @@ export class SqliteManagerService {
       student.phone
     ]);
   }
-
+    updateUser(user: User){
+      let sql = 'UPDATE users SET email=?, name=?, surname=?, phone=? WHERE id=?';
+      return this.db.executeSql(sql, [
+        
+        user.email,
+        user.name,
+        user.surname,  
+        user.phone,
+        user.id
+      ])
+    }
   /**
    * Obtener estudiantes
    * @param search 

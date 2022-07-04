@@ -12,7 +12,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class FormStudentComponent implements OnInit {
 
   @Input() student: Student;
-  public edit: boolean;
+   edit: boolean;
 
   @Output() close: EventEmitter<boolean>;
 

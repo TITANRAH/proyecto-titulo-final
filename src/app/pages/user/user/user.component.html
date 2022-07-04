@@ -1,29 +1,27 @@
-<ion-item>
-  <ion-label>email: </ion-label>
-  <ion-input type="text" [(ngModel)]="user.email" name="surname"></ion-input>
-</ion-item>
-<!-- Email -->
-<ion-item>
-  <ion-label>nombre: </ion-label>
-  <ion-input type="text" [(ngModel)]="user.name" name="email"></ion-input>
-</ion-item>
+<form (ngSubmit)="createEditUser()"> 
+  <ion-item>
+    <ion-label>email: </ion-label>
+    <ion-input type="text" [(ngModel)]="user.email" name="surname"></ion-input>
+  </ion-item>
+  <!-- Email -->
+  <ion-item>
+    <ion-label>nombre: </ion-label>
+    <ion-input type="text" [(ngModel)]="user.name" name="email"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>apellido: </ion-label>
+    <ion-input type="text" [(ngModel)]="user.surname" name="email"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>teléfono: </ion-label>
+    <ion-input type="text" [(ngModel)]="user.phone" name="email"></ion-input>
+  </ion-item>
 
-<ion-item>
-  <ion-label>apellido: </ion-label>
-  <ion-input type="text" [(ngModel)]="user.surname" name="email"></ion-input>
-</ion-item>
 
-<ion-item>
-  <ion-label>teléfono: </ion-label>
-  <ion-input type="text" [(ngModel)]="user.phone" name="email"></ion-input>
-</ion-item>
+  
+  <ion-button expand="block" type="submit">AÑADIR USUARIO</ion-button>
+  <ion-button expand="block" type="button" (click)="closeForm()">{{'label.back' | translate}}</ion-button>
 
-<ion-button (click)="createUser()">
-  <ion-icon name="person"></ion-icon>
-  <ion-label>Crear Agenda</ion-label>
-</ion-button>
-
-<ion-button (click)="getUsers()">
-  <ion-icon name="person"></ion-icon>
-  <ion-label>Obtener Usuario</ion-label>
-</ion-button>
+</form>

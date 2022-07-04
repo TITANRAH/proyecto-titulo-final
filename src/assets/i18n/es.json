@@ -1,8 +1,10 @@
 {
     "label.app": "Gestor de clases",
     "label.no.students": "No hay estudiantes",
+    "label.no.contacto": "No hay contactos",
     "label.students": "Alumnos",
     "label.add.student": "Añadir estudiante",
+    "label.add.contacto": "Añadir contacto",
     "label.form.student.name": "Nombre",
     "label.form.student.surname": "Apellidos",
     "label.form.student.email": "Email",

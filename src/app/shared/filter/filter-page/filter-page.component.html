@@ -5,34 +5,12 @@
       <form (ngSubmit)="filterData()">
 
         <!-- ¿Está pagado? -->
-        <ion-row *ngIf="payment">
-          <ion-col size="12">
-            <ion-item>
-              <ion-label>{{'label.paid' | translate}}</ion-label>
-              <ion-toggle [(ngModel)]="filter.paid" name="paid" (ionChange)="cleanDates()"></ion-toggle>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-
+        
         <!-- Fecha inicio -->
-        <ion-row *ngIf="!payment || filter.paid">
-          <ion-col size="12">
-            <ion-item>
-              <ion-label>{{'label.class.date.start' | translate}}</ion-label>
-              <ion-datetime displayFormat="DD MMM YYYY HH mm" [(ngModel)]="filter.date_start" name="date_start"></ion-datetime>
-            </ion-item>
-          </ion-col>
-        </ion-row>
+      
 
         <!-- Fecha fin -->
-        <ion-row *ngIf="!payment || filter.paid">
-          <ion-col size="12">
-            <ion-item>
-              <ion-label>{{'label.class.date.end' | translate}}</ion-label>
-              <ion-datetime displayFormat="DD MMM YYYY HH mm" [(ngModel)]="filter.date_end" name="date_end"></ion-datetime>
-            </ion-item>
-          </ion-col>
-        </ion-row>
+        
 
         <!-- Estudiante -->
         <ion-row *ngIf="students.length > 0">

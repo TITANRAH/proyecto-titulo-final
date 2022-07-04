@@ -8,17 +8,23 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
 
 import { Tab3Page } from './tab3.page';
 import { UserComponent } from '../user/user.component';
+import { ListUserComponent } from '../list-user/list-user.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    Tab3PageRoutingModule
+    Tab3PageRoutingModule,
+    SharedModule,
+    TranslateModule.forChild()
   ],
   declarations: [
     Tab3Page,
-    UserComponent
+    UserComponent,
+    ListUserComponent
    ]
 })
 export class Tab3PageModule {}

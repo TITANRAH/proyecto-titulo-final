@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { SqliteManagerService } from '../../../services/sqlite-manager.service';
+import { AlertService } from '../../../services/alert.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user',
@@ -9,22 +11,52 @@ import { SqliteManagerService } from '../../../services/sqlite-manager.service';
 })
 export class UserComponent implements OnInit {
 
-  users: User[] = [];
-  user: User;
+  @Input() user: User;
+  edit: boolean;
 
-  constructor(private sqliteManagerService: SqliteManagerService) { }
+  @Output() close: EventEmitter<boolean>;
+
+
+  users: User[] = [];
+  
+
+  constructor(private sqliteManagerService: SqliteManagerService,
+              private alertService: AlertService,
+              private translate :TranslateService) {
+                this.edit = false;
+                this.close = new EventEmitter<boolean>();
+               }
 
   ngOnInit() {
     if (!this.user) {
       this.user = new User();
-    } 
+    } else {
+      this.edit = true
+    }
   }
 
-  createUser(){
-    this.sqliteManagerService.createUser(this.user).then(user => {
-      console.log(user);
-      
-    })
+  createEditUser(){
+    if (this.edit) {
+      // Editar clase
+      this.sqliteManagerService.updateUser(this.user).then(() => {
+        console.log('Se ha actualizado');
+        this.alertService.alertSuccess(
+          this.translate.instant('label.success'),
+          this.translate.instant('label.success.message.edit.student')
+        )
+        this.closeForm();
+      })
+    } else {
+      // Crear clase
+      this.sqliteManagerService.createUser(this.user).then(() => {
+        console.log('Se ha insertado');
+        this.alertService.alertSuccess(
+          this.translate.instant('label.success'),
+          this.translate.instant('label.success.message.add.student')
+        )
+        this.closeForm();
+      })
+    }
   }
 
 
@@ -34,6 +66,10 @@ export class UserComponent implements OnInit {
      
       console.log(users);
     })
+  }
+
+  closeForm() {
+    this.close.emit(true);
   }
 
 }

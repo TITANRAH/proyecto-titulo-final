@@ -24,10 +24,9 @@ export class ListStudentsComponent implements OnInit {
     this.getStudents();
   }
 
-  /**
-   * Obtengo los estudiantes dado un filtro
-   * @param search 
-   */
+ 
+  // Obtengo los estudiantes dado un filtro
+   
   getStudents(search?: string) {
     this.sqliteManager.getStudents(search).then(students => {
       this.students = students;
@@ -35,28 +34,26 @@ export class ListStudentsComponent implements OnInit {
     })
   }
 
-  /**
-   * Cerrar el formulario
-   */
+  
+  //  Cerrar el formulario
+  
   closeForm() {
     this.showForm = false;
     this.studentSelected = null;
     this.getStudents();
   }
 
-  /**
-   * Edita un estudiante
-   * @param student 
-   */
+  
+  //  Edita un estudiante
+ 
   editStudent(student: Student) {
     this.studentSelected = student;
     this.showForm = true;
   }
 
-  /**
-   * Filtramos estudiantes
-   * @param $event 
-   */
+  
+    // Filtramos estudiantes
+   
   filterList($event) {
     console.log($event);
     this.getStudents($event.currentTarget.value);
