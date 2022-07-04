@@ -7,6 +7,21 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
+  mail:any;
+  password:any;
+
+  init= false;
+
   constructor() {}
 
+  verificacion(){
+    if(this.mail != 'granrah1@gmail.com' && this.password != '123456'){
+      
+      
+    }else{
+     
+     this.init= true;
+    }
+  }
+  
 }
