@@ -1,3 +1,5 @@
+
+
 .formulario{
     display: flex;
     flex-direction: column;
@@ -5,4 +7,30 @@
     align-content: center;
     align-items: center;
     justify-content: center;
+    width: 90%;
+    margin: auto;
 }
+
+.password-icon {
+    font-size: 1.5em;
+    float: right;
+    position: relative;
+    margin: -2.2rem 10px 0 0;
+    cursor: pointer;
+    color: #4c8dff;
+  }
+
+  .formulario-login{
+    width: 100vw;
+  }
+
+  .boton-password{
+    width: 90vw;
+    margin: auto;
+  }
+
+  .presentacion{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }

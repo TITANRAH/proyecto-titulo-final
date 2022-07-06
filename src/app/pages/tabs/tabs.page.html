@@ -1,47 +1,71 @@
 <ion-content>
-<div class="formulario">
-  <form>
-  <div>
-    <label for="">
-      <input type="text" [(ngModel)]="mail" name="mail">
-    </label>
+  <div class="formulario mt-5">
+    <div class="presentacion">
+      
+        <ion-label>
+          <h2>PROYECTO DE TITULO</h2>
+          <ion-label color="primary" slot="end">
+            <p>Sergio Miranda Nuñez</p>
+          </ion-label>
+        </ion-label>
+    
+    </div>
+    <form class="mt-5 formulario-login">
+    <div class="mt-5">
+      <label for="">
+        <ion-label color="primary">
+          Introduce tu email:
+        </ion-label> 
+        <input type="text" class="form-control mt-3 mb-1" [(ngModel)]="mail" name="mail">
+      </label>
+    </div>
+    
+    <div class="mt-3">
+      <label for="">
+        <ion-label color="primary">
+          Introduce tu password:
+        </ion-label> 
+        <input id="boton-password" type="password" class="form-control mt-3 mb-1" [(ngModel)]="password" name="mail">
+        <span (click)="mostrarPass()"><i color="primary" class="bi bi-eye password-icon"></i></span> 
+      </label>
+    </div>
+
+    <button type="button" class="btn btn-primary mt-2" (click)="verificacion()">COMENZAR</button>
+  </form>
+
   </div>
 
-  <div>
-    <label for="">
-      <input type="text" [(ngModel)]="password" name="mail">
-    </label>
-  </div>
-
-  <button type="button" (click)="verificacion()">COMENZAR</button>
-</form>
-
-</div>
-
-</ion-content>
+  
 
 
 <div *ngIf="init">
-  
-  <ion-tabs>
-  
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="tab1">
-        <ion-icon name="people-outline"></ion-icon>
-        <ion-label>{{'label.students' | translate}}</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="tab2">
-        <ion-icon name="school-outline"></ion-icon>
-        <ion-label>{{'label.classes' | translate}}</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button tab="tab3">
-        <ion-icon name="person"></ion-icon>
-        <ion-label>Contactos</ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-  
-  </ion-tabs>
+    
+    <ion-tabs>
+    
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="tab1">
+          <ion-icon name="people-outline"></ion-icon>
+          <ion-label>{{'label.students' | translate}}</ion-label>
+        </ion-tab-button>
+    
+        <ion-tab-button tab="tab2">
+          <ion-icon name="school-outline"></ion-icon>
+          <ion-label>{{'label.classes' | translate}}</ion-label>
+        </ion-tab-button>
+    
+        <ion-tab-button tab="tab3">
+          <ion-icon name="person"></ion-icon>
+          <ion-label>Contactos</ion-label>
+        </ion-tab-button>
+
+        
+        <ion-tab-button tab="tab4" (click)="close()" >
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>Salir</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    
+    </ion-tabs>
 </div>
 
+</ion-content>
